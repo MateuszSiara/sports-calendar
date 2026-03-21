@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sports Calendar</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f5f5f5; }
+        nav { background-color: #1a1a2e; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+        nav a { color: white; text-decoration: none; margin-right: 20px; font-size: 16px; }
+        nav a:hover { color: #e94560; }
+        h1 { color: #1a1a2e; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        th { background-color: #1a1a2e; color: white; padding: 12px 15px; text-align: left; }
+        td { padding: 12px 15px; border-bottom: 1px solid #eee; }
+        tr:hover { background-color: #f9f9f9; }
+        .status-played { color: green; font-weight: bold; }
+        .status-scheduled { color: orange; font-weight: bold; }
+        .btn { background-color: #e94560; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; font-size: 14px; }
+        .btn:hover { background-color: #c73652; }
+        .btn-detail { background-color: #1a1a2e; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 13px; }
+        .result { font-weight: bold; color: #1a1a2e; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/events">Sports Calendar</a>
+    <a href="#">Home</a>
+    <a href="#">Competitions</a>
+    <a href="#">Teams</a>
+</nav>
+
+<h1>AFC Champions League 2024</h1>
+
+<a href="/events/new" class="btn">+ Add New Event</a>
+
+<br/><br/>
+
+<table>
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Time (UTC)</th>
+        <th>Season</th>
+        <th>Competition</th>
+        <th>Stage</th>
+        <th>Home Team</th>
+        <th>Result</th>
+        <th>Away Team</th>
+        <th>Status</th>
+        <th>Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="event : ${events}">
+        <td th:text="${event.dateVenue}"></td>
+        <td th:text="${event.timeVenueUtc}"></td>
+        <td th:text="${event.seasonYear}"></td>
+        <td th:text="${event.competitionName}"></td>
+        <td th:text="${event.stageName}"></td>
+        <td th:text="${event.homeTeamName != null ? event.homeTeamName : 'TBD'}"></td>
+        <td class="result">
+                <span th:if="${event.homeGoals != null}"
+                      th:text="${event.homeGoals + ' : ' + event.awayGoals}"></span>
+            <span th:unless="${event.homeGoals != null}">-</span>
+        </td>
+        <td th:text="${event.awayTeamName != null ? event.awayTeamName : 'TBD'}"></td>
+        <td>
+                <span th:class="${event.status == 'played' ? 'status-played' : 'status-scheduled'}"
+                      th:text="${event.status}"></span>
+        </td>
+        <td>
+            <a th:href="@{/events/{id}(id=${event.id})}" class="btn-detail">View</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

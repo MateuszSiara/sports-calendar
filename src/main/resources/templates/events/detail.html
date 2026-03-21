@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Detail</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f5f5f5; }
+    nav { background-color: #1a1a2e; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+    nav a { color: white; text-decoration: none; margin-right: 20px; font-size: 16px; }
+    nav a:hover { color: #e94560; }
+    .card { background: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 700px; }
+    .card h2 { color: #1a1a2e; border-bottom: 2px solid #e94560; padding-bottom: 10px; }
+    .field { margin-bottom: 15px; }
+    .label { font-weight: bold; color: #666; font-size: 13px; text-transform: uppercase; }
+    .value { font-size: 16px; color: #1a1a2e; margin-top: 4px; }
+    .result-box { background: #1a1a2e; color: white; border-radius: 8px; padding: 20px; text-align: center; margin: 20px 0; }
+    .score { font-size: 48px; font-weight: bold; }
+    .winner { color: #e94560; font-size: 18px; margin-top: 10px; }
+    .btn-back { background-color: #1a1a2e; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; }
+    .status-played { color: green; font-weight: bold; }
+    .status-scheduled { color: orange; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/events">Sports Calendar</a>
+  <a href="#">Home</a>
+  <a href="#">Competitions</a>
+  <a href="#">Teams</a>
+</nav>
+
+<div class="card">
+  <h2>Event Details</h2>
+
+  <div class="field">
+    <div class="label">Competition</div>
+    <div class="value" th:text="${event.competitionName}"></div>
+  </div>
+
+  <div class="field">
+    <div class="label">Stage</div>
+    <div class="value" th:text="${event.stageName}"></div>
+  </div>
+
+  <div class="field">
+    <div class="label">Date & Time (UTC)</div>
+    <div class="value" th:text="${event.dateVenue + ' ' + event.timeVenueUtc}"></div>
+  </div>
+
+  <div class="field">
+    <div class="label">Season</div>
+    <div class="value" th:text="${event.seasonYear}"></div>
+  </div>
+
+  <div class="field">
+    <div class="label">Status</div>
+    <div class="value">
+            <span th:class="${event.status == 'played' ? 'status-played' : 'status-scheduled'}"
+                  th:text="${event.status}"></span>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="label">Sport</div>
+    <div class="value" th:text="${event.sportName}"></div>
+  </div>
+
+  <div th:if="${event.stadiumName != null}" class="field">
+    <div class="label">Stadium</div>
+    <div class="value" th:text="${event.stadiumName}"></div>
+  </div>
+
+  <div th:if="${event.homeGoals != null}" class="result-box">
+    <div th:text="${event.homeTeamName != null ? event.homeTeamName : 'TBD'}"></div>
+    <div class="score" th:text="${event.homeGoals + ' : ' + event.awayGoals}"></div>
+    <div th:text="${event.awayTeamName != null ? event.awayTeamName : 'TBD'}"></div>
+    <div th:if="${event.winner != null}" class="winner"
+         th:text="'Winner: ' + ${event.winner}"></div>
+  </div>
+
+  <div th:unless="${event.homeGoals != null}" class="result-box">
+    <div th:text="${event.homeTeamName != null ? event.homeTeamName : 'TBD'}"></div>
+    <div class="score">vs</div>
+    <div th:text="${event.awayTeamName != null ? event.awayTeamName : 'TBD'}"></div>
+  </div>
+
+  <br/>
+  <a href="/events" class="btn-back">← Back to list</a>
+</div>
+
+</body>
+</html>
