@@ -97,6 +97,26 @@ Model        — JPA entities
 DTO          — objects returned to the view
 ```
 
+**Frontend — Thymeleaf**
+Three HTML views built with Thymeleaf: event list, single event detail, and add event form. Navigation bar with placeholder links included as required by the task. Basic CSS styling embedded in the templates for readability.
+
+---
+
+## Tests
+
+The project contains 11 unit tests split across two test classes:
+
+- `EventServiceImplTest` — 6 service tests with Mockito (getAllEvents, getEventById, null handling, result handling)
+- `EventControllerTest` — 4 controller tests with MockMvc (list, detail, form endpoints)
+- `SportsCalendarApplicationTests` — verifies that the application context loads correctly
+
+Tests run without Docker or PostgreSQL — Mockito creates fake repository objects that simulate the database.
+
+**Run tests:**
+```bash
+./mvnw test
+```
+
 ---
 
 ## Endpoints

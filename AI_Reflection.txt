@@ -17,6 +17,11 @@ A good example of verification: when designing the ERD, AI suggested creating a 
 
 AI also suggested a few solutions that didn't follow 3NF — for example storing match results directly in the `events` table. I had to push back and convince AI to go with the correct approach — a separate `results` table. This shows I wasn't just blindly copying, I was thinking for myself.
 
+Frontend and tests
+I also used AI to help me create the basic styling and layout of the HTML pages. I'm not a frontend developer, so I asked Claude to suggest a simple, clean design for the event list, detail view and form. I understood what the CSS did and adjusted it where needed — for example the color scheme and table layout.
+
+For the unit tests I used AI as well. I used Mockito for service tests and MockMvc for controller tests. AI helped me understand how mocking works — instead of a real database, Mockito creates fake objects that simulate repositories. This way the 11 tests run without Docker or PostgreSQL being active. Through this I also learned the difference between unit tests and integration tests.
+
 What I learned
 I learned a lot of valuable things through this project that I'm sure will pay off in the future.
 
