@@ -1,0 +1,34 @@
+AI_Reflection.txt
+
+For this project I used Claude as my main AI tool.
+
+How I started
+I started by creating my own action plan and choosing technologies I had already worked with — either in my personal projects or at university. Only after that did I consult my plan with Claude, who helped me verify whether my technology choices were optimal and whether I had missed any steps. I then moved on to setting up the environment — this is where AI saved me a lot of time, because whenever I had a question or doubt I could get an answer right away.
+
+How I used AI while writing code
+I understand all the code I wrote — I know what happens where and why. When bugs appeared, I always tried to fix them myself first, looking for solutions online. AI helped me understand errors I couldn't figure out on my own. Most of the time I managed to fix things myself, but a few times I had to ask Claude Code to analyze the project, explain what was going wrong and help me fix it.
+
+AI also helped me check whether my application plan covered all the requirements from the task — so I wouldn't miss any point by accident.
+
+How I verified the code from AI
+I always tried to understand the code I received from AI — I analyzed the connections between files so I knew what to expect. I kept an eye on AI at every step — when it suggested changes or optimizations, I didn't accept them without understanding why they were better.
+
+A good example of verification: when designing the ERD, AI suggested creating a separate `seasons` table. I questioned this — a season is just one integer, a separate table would be over-engineering with no real value. Instead I kept `season_year` as a simple INTEGER field in the `events` table. That was my decision, not AI's.
+
+AI also suggested a few solutions that didn't follow 3NF — for example storing match results directly in the `events` table. I had to push back and convince AI to go with the correct approach — a separate `results` table. This shows I wasn't just blindly copying, I was thinking for myself.
+
+What I learned
+I learned a lot of valuable things through this project that I'm sure will pay off in the future.
+
+One concept that was new to me was the N+1 problem in Hibernate. Through this project I understood exactly why it happens and how to solve it using JOIN FETCH. This was one of those moments where AI didn't just give me a solution but also explained why it's better — and that stuck with me.
+
+I also learned that it's not worth only thinking about the data you have right now. Even when building a small system, it's worth thinking about the future — so it can handle larger and external data, so it's flexible. An example from this project: the `goals` and `cards` tables are empty in the provided dataset, but I designed them properly so they're ready for real data in the future.
+
+This project also made me realize how important it is to design a database properly from the start — the decisions made at the design stage have a huge impact on the quality of the whole system.
+
+I tried to understand every technical decision in this project — why Liquibase instead of ddl-auto, why JOIN FETCH, why a separate results table, why an interface in the service layer. Not everything was obvious to me right away, but I kept asking questions until I understood — and that's the approach I want to keep going forward.
+
+My thoughts on AI as a tool
+AI is a great tool for a developer — it speeds up work, helps find bugs that a person would spend much longer looking for, and makes the work more productive. A developer can focus more on building a well-thought-out solution rather than just writing code.
+
+That said, AI is just a tool — you can't use it to build everything without understanding what it produced. AI also makes mistakes, repeats itself, and sometimes suggests solutions that aren't optimal. That's why I always verified what I received and tried to understand every line of code. I think that's what separates a developer who uses AI wisely from someone who just copies and pastes.
