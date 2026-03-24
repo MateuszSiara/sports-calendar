@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,22 @@ public class EventServiceImpl implements EventService {
     private final TeamRepository teamRepository;
     private final StageRepository stageRepository;
 
+    @Override
+    public List<EventDto> getFilteredEvents(String status, LocalDate date) {
+        String statusParam = (status != null && !status.isEmpty()) ? status : null;
+
+        List<Event> events;
+        if (statusParam == null && date == null) {
+            events = eventRepository.findAllWithDetails();
+        } else if (statusParam != null && date == null) {
+            events = eventRepository.findByStatus(statusParam);
+        } else if (statusParam == null) {
+            events = eventRepository.findByDate(date);
+        } else {
+            events = eventRepository.findAllWithFilters(statusParam, date);
+        }
+        return events.stream().map(this::toDto).collect(Collectors.toList());
+    }
     @Override
     public List<EventDto> getAllEvents() {
         return eventRepository.findAllWithDetails()

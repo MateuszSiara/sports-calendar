@@ -10,10 +10,12 @@ import com.sportradar.sportscalendar.repository.StageRepository;
 import com.sportradar.sportscalendar.repository.TeamRepository;
 import com.sportradar.sportscalendar.service.EventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -26,11 +28,16 @@ public class EventController {
     private final StageRepository stageRepository;
     private final TeamRepository teamRepository;
 
-    //lista wszystkich eventów
     @GetMapping
-    public String listEvents(Model model) {
-        List<EventDto> events = eventService.getAllEvents();
+    public String listEvents(
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            Model model) {
+
+        List<EventDto> events = eventService.getFilteredEvents(status, date);
         model.addAttribute("events", events);
+        model.addAttribute("selectedStatus", status);
+        model.addAttribute("selectedDate", date);
         return "events/list";
     }
 

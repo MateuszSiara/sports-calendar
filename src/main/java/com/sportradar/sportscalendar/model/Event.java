@@ -33,6 +33,10 @@ public class Event {
     private String eventGroup;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "_sport_id", nullable = false)
+    private Sport sport;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "_competition_id", nullable = false)
     private Competition competition;
 
